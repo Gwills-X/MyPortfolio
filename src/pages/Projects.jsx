@@ -37,27 +37,65 @@ export default function Projects() {
       </section>
 
       {/* Projects Grid */}
-      <section className='py-20'>
-        <motion.div
-          className='grid md:grid-cols-2 gap-8'
-          initial='hidden'
-          animate='visible'
-          variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: 0.1 } },
-          }}>
-          {projects.map((project, index) => (
+      <motion.section
+        className='py-20'
+        initial='hidden'
+        whileInView='visible'
+        viewport={{ once: true, amount: 0.2 }}
+        variants={{
+          hidden: {},
+          visible: { transition: { staggerChildren: 0.1 } },
+        }}>
+        <div className='flex justify-between items-center mb-10'>
+          <motion.h2 className='text-3xl font-semibold'>
+            Featured Projects
+          </motion.h2>
+        </div>
+
+        <motion.div className='grid md:grid-cols-2 gap-8'>
+          {projects.map((project) => (
             <motion.div
               key={project.id}
               variants={{
                 hidden: { opacity: 0, y: 30 },
                 visible: { opacity: 1, y: 0 },
-              }}>
-              <ProjectCard project={project} />
+              }}
+              className='bg-gray-900 rounded-xl shadow-lg overflow-hidden cursor-pointer hover:shadow-2xl transition'
+              onClick={() => (window.location.href = `/projects/${project.id}`)} // navigate to project details
+            >
+              {/* Video Preview */}
+              {project.video ? (
+                <video
+                  src={project.video}
+                  controls
+                  className='w-full h-60 object-cover'
+                  poster={project.image || ""}
+                />
+              ) : (
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className='w-full h-60 object-cover'
+                />
+              )}
+
+              {/* Project Info */}
+              <div className='p-4'>
+                <h3 className='text-xl font-semibold mb-2'>{project.title}</h3>
+                <div className='flex flex-wrap gap-2'>
+                  {project.tech.map((tech, idx) => (
+                    <span
+                      key={idx}
+                      className='text-sm bg-blue-600 text-white px-2 py-1 rounded-full'>
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </motion.div>
           ))}
         </motion.div>
-      </section>
+      </motion.section>
 
       {/* About Our Work Section */}
       <section className='py-24 bg-transparent border shadow-2xl dark:bg-gray-800 px-6 rounded-xl max-w-4xl mx-auto'>
