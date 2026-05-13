@@ -2,13 +2,15 @@
 import vtuVideo from "../data/lv_0_20250826145229.mp4";
 import jobLinkVideo from "../data/lv_0_20251108115058.mp4";
 import chayilPortfolio from "../data/lv_0_20260117215806.mp4";
+import landingPageVideo from "../data/landing page.mp4";
+
 const projects = [
   {
     id: "joblink",
     title: "JobLink",
     description: "A platform connecting job seekers with employers.",
     image: "/project1.png",
-    video: jobLinkVideo, // <-- added
+    video: jobLinkVideo,
     tech: ["React", "PHP", "Laravel", "MySQL"],
     overview:
       "JobLink is a fullstack web application designed to connect employers with job seekers through a seamless and user-friendly platform.",
@@ -51,10 +53,10 @@ const projects = [
   },
   {
     id: "chayil-portfolio",
-    title: "Chayil Portfolio",
+    title: "Portfolio Website",
     description:
       "A personal portfolio website showcasing projects, services, and contact info.",
-    video: chayilPortfolio, // replace with your actual video path
+    video: chayilPortfolio,
     tech: ["React", "Tailwind CSS", "Framer Motion", "React Router"],
     overview:
       "Chayil Portfolio is a modern, responsive portfolio website built to highlight personal projects, services, and professional achievements.",
@@ -68,72 +70,51 @@ const projects = [
       "Project showcase with videos and tech stack",
       "Contact form integration",
     ],
-    live: "#", // replace with live demo link if available
-    github: "#", // replace with GitHub link if available
+    live: "#",
+    github: "#",
   },
   {
-    id: "inventory-system",
-    title: "Inventory Management System",
+    id: "modern-landing-page",
+    title: "High-Conversion Landing Page",
     description:
-      "Fullstack system to manage products, stock, and transactions.",
-    image: "/project3.png",
-    video: "/videos/inventory-system.mp4",
-    tech: ["Laravel", "PHP", "MySQL", "Tailwind CSS"],
+      "A sleek, high-performance landing page for business marketing.",
+    video: landingPageVideo,
+    tech: ["React", "Vite", "Tailwind CSS", "Lucide React"],
     overview:
-      "A backend-driven application for businesses to manage products, stock levels, and inventory transactions efficiently.",
+      "A professionally designed landing page optimized for speed, SEO, and user conversion, featuring a modern aesthetic and bold branding.",
     problem:
-      "Manual inventory tracking causes errors, mismanagement, and inefficient reporting.",
+      "Businesses often have low conversion rates due to cluttered designs and slow-loading marketing pages.",
     solution:
-      "Implemented a secure CRUD system with relational database management, reporting features, and stock tracking logic to automate daily operations.",
+      "I created a lightweight, high-performance landing page with clear CTA sections, optimized assets, and a clean UI to drive user engagement.",
     features: [
-      "Product CRUD management",
-      "Stock tracking and updates",
-      "User role access control",
-      "Reporting and export options",
+      "Fully responsive and mobile-optimized",
+      "High-performance assets with Vite",
+      "Clear Call-to-Action (CTA) sections",
+      "Modern UI components and typography",
     ],
     live: "#",
     github: "#",
   },
   {
-    id: "cosmetics-store",
-    title: "Cosmetics E-commerce",
-    description: "A responsive online store for beauty products.",
-    image: "/project4.png",
-    video: "/videos/cosmetics-store.mp4",
-    tech: ["React", "Tailwind CSS", "Stripe API", "Firebase"],
+    id: "vtu-fullstack-app",
+    title: "Enterprise VTU Solution",
+    description:
+      "Fullstack automated platform for telecom and utility services.",
+    image: "/vtu-fullstack.png",
+    video: vtuVideo,
+    tech: ["React", "Laravel", "MySQL", "Tailwind CSS", "REST API"],
     overview:
-      "An online store providing seamless shopping for beauty and cosmetic products, including checkout and order tracking.",
+      "A robust, fullstack Virtual Top-Up (VTU) application built to handle automated airtime, data, and utility bill payments via secure API integrations.",
     problem:
-      "Small businesses need an online store without managing complex e-commerce platforms.",
+      "Managing high-volume telecom transactions manually or through unstable third-party tools leads to revenue loss and user frustration.",
     solution:
-      "Built a modern React-based store with Firebase backend for authentication, Stripe for payments, and responsive UI for all devices.",
+      "I engineered a complete solution using Laravel for the backend logic and React for the frontend, featuring automated transaction processing and secure wallet management.",
     features: [
-      "Product listing and search",
-      "User authentication and cart",
-      "Stripe payment integration",
-      "Order history and tracking",
-    ],
-    live: "#",
-    github: "#",
-  },
-  {
-    id: "student-management",
-    title: "Student Management System",
-    description: "Manage student data, courses, and academic records.",
-    image: "/project5.png",
-    video: "/videos/student-management.mp4",
-    tech: ["Laravel", "PHP", "MySQL", "Bootstrap"],
-    overview:
-      "This system allows educational institutions to manage student profiles, course registration, grades, and academic history efficiently.",
-    problem:
-      "Manual student record-keeping is prone to errors and is difficult to scale.",
-    solution:
-      "Developed a secure web application with role-based access, CRUD operations, and database relationships to ensure smooth student data management.",
-    features: [
-      "Student profile management",
-      "Course registration and allocation",
-      "Role-based admin and teacher access",
-      "Reports on grades and attendance",
+      "Automated API routing for instant delivery",
+      "User wallet system with secure funding",
+      "Real-time transaction status tracking",
+      "Advanced Admin dashboard for sales monitoring",
+      "Secure authentication and data encryption",
     ],
     live: "#",
     github: "#",
