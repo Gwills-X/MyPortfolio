@@ -9,9 +9,9 @@ const projects = [
     id: "joblink",
     title: "JobLink",
     description: "A platform connecting job seekers with employers.",
-    image: "/project1.png",
+    image: "/joblink.jpg",
     video: jobLinkVideo,
-    tech: ["React", "PHP", "Laravel", "MySQL"],
+    tech: ["Tailwindcss", "PHP", "HTML", "MySQL"],
     overview:
       "JobLink is a fullstack web application designed to connect employers with job seekers through a seamless and user-friendly platform.",
     problem:
@@ -26,14 +26,14 @@ const projects = [
       "Real-time notifications",
     ],
     live: "#",
-    github: "#",
+    github: "https://github.com/Gwills-X/JobLink-Application",
   },
   {
     id: "vtu-portal",
     title: "VTU Service Portal",
     description:
       "A web portal for airtime, data subscriptions, and bill payments.",
-    image: "/project2.png",
+    image: "/vtu.png",
     video: vtuVideo,
     tech: ["React", "Tailwind CSS", "Redux", "Node.js", "Express", "MongoDB"],
     overview:
@@ -49,13 +49,14 @@ const projects = [
       "Responsive mobile-first design",
     ],
     live: "#",
-    github: "#",
+    github: "https://github.com/Gwills-X/Smartdatalink-project1",
   },
   {
     id: "chayil-portfolio",
     title: "Portfolio Website",
     description:
       "A personal portfolio website showcasing projects, services, and contact info.",
+    image: "/portfolio.png",
     video: chayilPortfolio,
     tech: ["React", "Tailwind CSS", "Framer Motion", "React Router"],
     overview:
@@ -71,15 +72,16 @@ const projects = [
       "Contact form integration",
     ],
     live: "#",
-    github: "#",
+    github: "https://github.com/Gwills-X/Chanyil-portfolio",
   },
   {
     id: "modern-landing-page",
     title: "High-Conversion Landing Page",
     description:
       "A sleek, high-performance landing page for business marketing.",
+    image: "/landingPage.png",
     video: landingPageVideo,
-    tech: ["React", "Vite", "Tailwind CSS", "Lucide React"],
+    tech: ["React", "Next JS", "Tailwind CSS", "Lucide React", "TypeScript"],
     overview:
       "A professionally designed landing page optimized for speed, SEO, and user conversion, featuring a modern aesthetic and bold branding.",
     problem:
@@ -93,7 +95,7 @@ const projects = [
       "Modern UI components and typography",
     ],
     live: "#",
-    github: "#",
+    github: "https://github.com/Gwills-X/ChayilglobalLandingPage",
   },
   {
     id: "vtu-fullstack-app",
@@ -117,7 +119,7 @@ const projects = [
       "Secure authentication and data encryption",
     ],
     live: "#",
-    github: "#",
+    github: "https://github.com/Gwills-X/VTUFrontendApplication",
   },
 ];
 

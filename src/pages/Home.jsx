@@ -120,7 +120,7 @@ export default function Home() {
           <div className='absolute inset-0 bg-gradient-to-tr from-[var(--color-accent)] to-purple-500 rounded-full blur-[80px] opacity-20 animate-pulse' />
           <div className='relative w-full h-full rounded-3xl border border-white/10 overflow-hidden bg-gray-900 shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500'>
             <img
-              src='/your-profile-pic.jpg'
+              src='/myPicture.png'
               alt='Godswill Eguavoen'
               className='w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700'
             />

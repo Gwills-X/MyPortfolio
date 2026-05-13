@@ -29,7 +29,7 @@ export default function About() {
           <div className='absolute inset-0 rounded-full border-2 border-dashed border-[var(--color-accent)] animate-spin-slow' />
           <div className='absolute inset-2 rounded-full overflow-hidden border-4 border-gray-900 shadow-2xl'>
             <img
-              src='/path-to-your-photo.jpg' // REPLACE WITH YOUR IMAGE
+              src='/myPicture2.png' // REPLACE WITH YOUR IMAGE
               alt='Godswill Eguavoen'
               className='w-full h-full object-cover'
             />
@@ -57,7 +57,7 @@ export default function About() {
           </p>
           <div className='flex flex-wrap justify-center md:justify-start gap-4'>
             <span className='flex items-center gap-2 text-sm bg-gray-900 px-3 py-1 rounded-full border border-gray-800'>
-              <User size={14} className='text-[var(--color-accent)]' /> Lagos,
+              <User size={14} className='text-[var(--color-accent)]' /> Bauchi,
               Nigeria
             </span>
             <span className='flex items-center gap-2 text-sm bg-gray-900 px-3 py-1 rounded-full border border-gray-800'>
