@@ -1,124 +1,141 @@
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+// Corrected imports for React Icons
+import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from "react-icons/fa";
+import { Zap } from "lucide-react"; // Keeping Zap for the button, or swap to FaBolt
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
     <motion.footer
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className='bg-transparent dark:bg-gray-900 text-gray-700 dark:text-gray-300 mt-20'>
-      <div className='max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-10'>
-        {/* About Brand */}
-        <div>
-          <h3 className='text-xl font-bold mb-4'>GWTeck Solutions</h3>
-          <p className='text-gray-600 dark:text-gray-400 mb-2'>
-            Founded by Godswill Eguavoen, GWTeck Solutions builds modern,
-            responsive, and interactive web applications tailored to businesses
-            and individuals.
-          </p>
-          <p className='text-gray-600 dark:text-gray-400'>
-            From corporate websites, e-commerce platforms, to fullstack web
-            apps, we deliver clean code, scalable solutions, and engaging user
-            experiences.
-          </p>
-        </div>
-
-        {/* Quick Links */}
-        <div>
-          <h3 className='text-xl font-bold mb-4'>Quick Links</h3>
-          <ul className='space-y-2'>
-            <li>
-              <a
-                href='/'
-                className='hover:text-[var(--color-accent)] transition-colors'>
-                Home
-              </a>
-            </li>
-            <li>
-              <a
-                href='/projects'
-                className='hover:text-[var(--color-accent)] transition-colors'>
-                Projects
-              </a>
-            </li>
-            <li>
-              <a
-                href='/about'
-                className='hover:text-[var(--color-accent)] transition-colors'>
-                About
-              </a>
-            </li>
-            <li>
-              <a
-                href='/contact'
-                className='hover:text-[var(--color-accent)] transition-colors'>
-                Contact
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        {/* Contact & Socials */}
-        <div>
-          <h3 className='text-xl font-bold mb-4'>Get in Touch</h3>
-          <p className='flex items-center gap-2 mb-2'>
-            <FaEnvelope />
-            <a
-              href='mailto:contact@gwtecksolutions.com'
-              className='hover:text-[var(--color-accent)] transition-colors'>
-              contact@gwtecksolutions.com
-            </a>
-          </p>
-          <p className='mb-4'>Follow us on social media:</p>
-          <div className='flex gap-4 text-xl'>
-            {[
-              {
-                icon: <FaGithub />,
-                href: "https://github.com/gwtecksolutions",
-                color: "hover:text-gray-900 dark:hover:text-white",
-              },
-              {
-                icon: <FaLinkedin />,
-                href: "https://linkedin.com/company/gwtecksolutions",
-                color: "hover:text-blue-600",
-              },
-              {
-                icon: <FaTwitter />,
-                href: "https://twitter.com/gwtecksolutions",
-                color: "hover:text-blue-400",
-              },
-            ].map((item, index) => (
-              <motion.a
-                key={index}
-                href={item.href}
-                target='_blank'
-                rel='noopener noreferrer'
-                whileHover={{ scale: 1.2, rotate: 10 }}
-                whileTap={{ scale: 0.95, rotate: -5 }}
-                className={`transition-colors ${item.color}`}>
-                {item.icon}
-              </motion.a>
-            ))}
+      className='relative mt-32 border-t border-white/5 bg-[#050505]'>
+      {/* --- TOP CTA BRIDGE --- */}
+      <div className='max-w-7xl mx-auto px-6 -mt-16'>
+        <div className='bg-gradient-to-r from-[var(--color-accent)] to-purple-600 rounded-3xl p-8 md:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8'>
+          <div>
+            <h3 className='text-3xl font-black text-white tracking-tighter uppercase'>
+              Let's build the future.
+            </h3>
+            <p className='text-white/80 mt-2 font-medium'>
+              Start your journey with GWTeck Solutions today.
+            </p>
           </div>
+          <Link
+            to='/contact'
+            className='bg-white text-black px-8 py-4 rounded-2xl font-bold flex items-center gap-2 hover:scale-105 transition-transform'>
+            Start a Project <Zap size={18} fill='black' />
+          </Link>
         </div>
       </div>
 
-      {/* Bottom Bar */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
-        className='border-t border-gray-300 dark:border-gray-700 py-6 mt-10 text-center text-gray-600 dark:text-gray-400 text-sm'>
-        &copy; 2026 GWTeck Solutions. All rights reserved. Designed & Built with
-        ❤️ using React, TailwindCSS & Vite.
-        <br />
-        Godswill Eguavoen — Founder & Lead Developer
-      </motion.div>
+      <div className='max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-4 gap-12'>
+        {/* Brand Identity */}
+        <div className='md:col-span-2'>
+          <Link
+            to='/'
+            className='text-2xl font-black tracking-tighter text-white mb-6 block'>
+            GW<span className='text-[var(--color-accent)]'>TECK.</span>
+          </Link>
+          <p className='text-gray-400 max-w-sm leading-relaxed mb-8'>
+            Architecting high-performance digital experiences. From complex
+            backend logic to pixel-perfect interfaces, we bring your vision to
+            life.
+          </p>
+
+          {/* Fixed Social Buttons */}
+          <div className='flex gap-3'>
+            <SocialButton
+              href='https://github.com/gwtecksolutions'
+              icon={<FaGithub size={20} />}
+            />
+            <SocialButton
+              href='https://linkedin.com/company/gwtecksolutions'
+              icon={<FaLinkedin size={20} />}
+            />
+            <SocialButton
+              href='https://twitter.com/gwtecksolutions'
+              icon={<FaTwitter size={20} />}
+            />
+            <SocialButton
+              href='mailto:contact@gwtecksolutions.com'
+              icon={<FaEnvelope size={18} />}
+            />
+          </div>
+        </div>
+
+        {/* Navigation */}
+        <div>
+          <h4 className='text-white font-bold mb-6 uppercase text-[10px] tracking-[0.2em] opacity-50'>
+            Navigation
+          </h4>
+          <ul className='space-y-4'>
+            <FooterLink to='/'>Home</FooterLink>
+            <FooterLink to='/projects'>Projects</FooterLink>
+            <FooterLink to='/about'>About</FooterLink>
+            <FooterLink to='/contact'>Contact</FooterLink>
+          </ul>
+        </div>
+
+        {/* Contact Info */}
+        <div>
+          <h4 className='text-white font-bold mb-6 uppercase text-[10px] tracking-[0.2em] opacity-50'>
+            Office
+          </h4>
+          <p className='text-gray-400 text-sm mb-4 leading-loose'>
+            Bauchi State, <br />
+            Nigeria, West Africa
+          </p>
+          <p className='text-xs text-gray-500 font-mono'>
+            Available for Global Remote Work
+          </p>
+        </div>
+      </div>
+
+      {/* --- BOTTOM BAR --- */}
+      <div className='border-t border-white/5 py-10 text-center'>
+        <div className='max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6'>
+          <p className='text-gray-500 text-[10px] tracking-[0.1em] uppercase'>
+            &copy; {currentYear} GWTECK SOLUTIONS. ALL RIGHTS RESERVED.
+          </p>
+          <p className='text-gray-500 text-[10px] font-mono tracking-tighter'>
+            BUILT BY <span className='text-white'>GODSWILL EGUAVOEN</span>
+          </p>
+        </div>
+      </div>
     </motion.footer>
   );
 };
+
+/* --- HELPER COMPONENTS --- */
+
+const FooterLink = ({ to, children }) => (
+  <li>
+    <Link
+      to={to}
+      className='text-gray-400 hover:text-[var(--color-accent)] transition-all duration-300 flex items-center group text-sm'>
+      <span className='w-0 group-hover:w-4 h-px bg-[var(--color-accent)] mr-0 group-hover:mr-2 transition-all'></span>
+      {children}
+    </Link>
+  </li>
+);
+
+const SocialButton = ({ href, icon }) => (
+  <motion.a
+    href={href}
+    target='_blank'
+    rel='noopener noreferrer'
+    whileHover={{
+      y: -5,
+      backgroundColor: "var(--color-accent)",
+      color: "#fff",
+    }}
+    className='w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 transition-all duration-300'>
+    {icon}
+  </motion.a>
+);
 
 export default Footer;

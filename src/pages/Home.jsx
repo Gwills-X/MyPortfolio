@@ -1,235 +1,227 @@
 import Container from "../components/layout/Container";
+import React from "react";
 import { Link } from "react-router-dom";
 import projects from "../data/projects";
 import { motion } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
+import { ArrowRight, Code2, Sparkles, Globe, Cpu, Zap } from "lucide-react";
 
 /* ================= ANIMATIONS ================= */
 const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
 };
 
-const stagger = {
+const staggerContainer = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
+  visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
 };
 
-/* ================= VIDEO CARD ================= */
-let activeVideo = null;
-
+/* ================= VIDEO CARD COMPONENT ================= */
 function VideoProjectCard({ project }) {
   const videoRef = useRef(null);
-  const [playing, setPlaying] = useState(false);
-
-  const handlePlay = () => {
-    if (!videoRef.current) return;
-
-    if (activeVideo && activeVideo !== videoRef.current) {
-      activeVideo.pause();
-    }
-
-    if (playing) {
-      videoRef.current.pause();
-    } else {
-      videoRef.current.play();
-      activeVideo = videoRef.current;
-    }
-
-    setPlaying(!playing);
-  };
-
-  useEffect(() => {
-    const vid = videoRef.current;
-    if (!vid) return;
-
-    const stop = () => setPlaying(false);
-    vid.addEventListener("ended", stop);
-
-    return () => vid.removeEventListener("ended", stop);
-  }, []);
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div
-      whileHover={{ y: -6 }}
-      className='bg-gray-900 rounded-xl overflow-hidden shadow-lg group'>
-      {/* VIDEO */}
-      <div className='relative'>
+      variants={fadeInUp}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className='group relative bg-[#0f0f0f] border border-gray-800 rounded-2xl overflow-hidden shadow-2xl transition-all hover:border-[var(--color-accent)]/50'>
+      <div className='relative h-64 overflow-hidden'>
         <video
           ref={videoRef}
           src={project.video}
-          className='w-full h-[240px] object-cover'
+          muted
+          loop
+          playsInline
+          autoPlay={isHovered}
+          className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-110'
         />
-
-        {/* overlay */}
         <div
-          onClick={handlePlay}
-          className='absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition cursor-pointer'>
-          <div className='bg-white/90 p-4 rounded-full text-xl shadow-lg'>
-            {playing ? "⏸" : "▶"}
+          className={`absolute inset-0 bg-black/40 flex items-center justify-center transition-opacity duration-300 ${isHovered ? "opacity-0" : "opacity-100"}`}>
+          <div className='bg-white/10 backdrop-blur-md p-4 rounded-full'>
+            <Zap className='text-white' fill='white' size={24} />
           </div>
         </div>
       </div>
 
-      {/* TEXT */}
-      <div className='p-4'>
-        <h3 className='text-lg font-semibold'>{project.title}</h3>
-        <p className='text-sm text-[var(--color-muted)] mt-1'>{project.desc}</p>
+      <div className='p-6'>
+        <h3 className='text-xl font-bold text-white group-hover:text-[var(--color-accent)] transition-colors'>
+          {project.title}
+        </h3>
+        <p className='text-sm text-[var(--color-muted)] mt-2 line-clamp-2'>
+          {project.description}
+        </p>
+        <div className='mt-4 flex items-center text-[var(--color-accent)] font-semibold text-sm'>
+          View Case Study{" "}
+          <ArrowRight
+            size={16}
+            className='ml-2 group-hover:translate-x-2 transition-transform'
+          />
+        </div>
       </div>
     </motion.div>
   );
 }
 
-/* ================= MAIN PAGE ================= */
+/* ================= MAIN HOME PAGE ================= */
 export default function Home() {
   return (
     <Container>
-      {/* HERO */}
+      {/* --- HERO SECTION --- */}
+      <section className='relative pt-20 pb-32 flex flex-col md:flex-row items-center gap-12'>
+        <motion.div
+          className='flex-1 text-center md:text-left z-10'
+          initial='hidden'
+          animate='visible'
+          variants={fadeInUp}>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className='inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 text-[var(--color-accent)] text-xs font-bold uppercase tracking-widest mb-6'>
+            <Sparkles size={14} /> Available for new projects
+          </motion.div>
+
+          <h1 className='text-6xl md:text-8xl font-black leading-[0.9] mb-8 tracking-tighter'>
+            DIGITAL <br />
+            <span className='text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-400'>
+              ARCHITECT.
+            </span>
+          </h1>
+
+          <p className='text-lg md:text-xl text-[var(--color-muted)] max-w-xl leading-relaxed mb-10'>
+            Founder of{" "}
+            <span className='text-white font-semibold'>GWTeck Solutions</span>.
+            I engineer high-performance web applications with
+            <span className='text-white'> React, PHP, and Laravel</span>.
+          </p>
+
+          <div className='flex flex-wrap gap-5 justify-center md:justify-start'>
+            <Link
+              to='/projects'
+              className='bg-[var(--color-accent)] px-8 py-4 rounded-full text-white font-bold shadow-[0_10px_20px_rgba(99,102,241,0.3)] hover:scale-105 transition-all'>
+              Explore Work
+            </Link>
+            <Link
+              to='/contact'
+              className='bg-white/5 backdrop-blur-md border border-white/10 px-8 py-4 rounded-full text-white font-bold hover:bg-white/10 transition-all'>
+              Let's Talk
+            </Link>
+          </div>
+        </motion.div>
+
+        {/* Hero Image / Profile Space */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+          className='relative w-72 h-72 md:w-[450px] md:h-[450px]'>
+          <div className='absolute inset-0 bg-gradient-to-tr from-[var(--color-accent)] to-purple-500 rounded-full blur-[80px] opacity-20 animate-pulse' />
+          <div className='relative w-full h-full rounded-3xl border border-white/10 overflow-hidden bg-gray-900 shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500'>
+            <img
+              src='/your-profile-pic.jpg'
+              alt='Godswill Eguavoen'
+              className='w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700'
+            />
+          </div>
+        </motion.div>
+      </section>
+
+      {/* --- SERVICES / OFFERINGS --- */}
       <motion.section
-        className='py-24 text-center md:text-left'
-        initial='hidden'
-        animate='visible'
-        variants={fadeInUp}>
-        <h1 className='text-5xl md:text-6xl font-bold leading-tight mb-6'>
-          I build modern web apps <br />
-          <span className='text-[var(--color-accent)]'>React & PHP</span>
-        </h1>
-
-        <p className='text-[var(--color-muted)] max-w-xl mx-auto md:mx-0 mb-8'>
-          Fullstack developer and founder of{" "}
-          <span className='font-semibold'>GWTeck Solutions</span>, creating
-          scalable and user-friendly applications.
-        </p>
-
-        <div className='flex flex-col md:flex-row gap-4 justify-center md:justify-start'>
-          <Link
-            to='/projects'
-            className='bg-[var(--color-accent)] px-6 py-3 rounded-lg text-white font-medium hover:scale-105 transition'>
-            View Projects
-          </Link>
-
-          <Link
-            to='/contact'
-            className='border border-white/10 px-6 py-3 rounded-lg hover:bg-white/5 transition font-medium'>
-            Contact Me
-          </Link>
-        </div>
-      </motion.section>
-
-      {/* ABOUT */}
-      <motion.section
-        className='py-24 bg-gray-900 rounded-xl px-6 md:px-12'
+        className='py-24'
         initial='hidden'
         whileInView='visible'
         viewport={{ once: true }}
-        variants={fadeInUp}>
-        <h2 className='text-3xl font-semibold mb-6'>About Me</h2>
-        <p className='text-[var(--color-muted)] mb-4'>
-          Hi, I’m Godswill, a passionate Fullstack Developer specializing in
-          React, PHP, Laravel, and modern web technologies.
-        </p>
-        <p className='text-[var(--color-muted)]'>
-          I build scalable, high-performing applications with clean UI/UX.
-        </p>
-      </motion.section>
+        variants={staggerContainer}>
+        <div className='text-center mb-16'>
+          <h2 className='text-4xl font-bold mb-4'>What I Bring to the Table</h2>
+          <div className='h-1.5 w-20 bg-[var(--color-accent)] mx-auto rounded-full' />
+        </div>
 
-      {/* SERVICES */}
-      <motion.section
-        className='py-24 px-6 md:px-12'
-        initial='hidden'
-        whileInView='visible'
-        variants={stagger}>
-        <h2 className='text-3xl font-semibold mb-6'>What I Offer</h2>
-
-        <div className='grid md:grid-cols-3 gap-8'>
-          {[
-            "Web Development",
-            "UI/UX Design",
-            "E-Commerce",
-            "API Integration",
-            "Consultation",
-          ].map((item, i) => (
-            <motion.div
-              key={i}
-              variants={fadeInUp}
-              className='bg-gray-900 p-6 rounded-lg hover:scale-105 transition'>
-              <h3 className='font-semibold'>{item}</h3>
-            </motion.div>
-          ))}
+        <div className='grid sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+          <ServiceCard
+            icon={<Globe />}
+            title='Web Development'
+            desc='Scalable apps built with the TALL or MERN stack.'
+          />
+          <ServiceCard
+            icon={<Cpu />}
+            title='Backend Systems'
+            desc='Secure API architecture and database optimization.'
+          />
+          <ServiceCard
+            icon={<Code2 />}
+            title='UI/UX Motion'
+            desc='Interactive interfaces that keep users engaged.'
+          />
         </div>
       </motion.section>
 
-      {/* FEATURED PROJECTS */}
-      <motion.section
-        className='py-24 px-6 md:px-12'
-        initial='hidden'
-        whileInView='visible'
-        viewport={{ once: true, amount: 0.2 }}
-        variants={stagger}>
-        <div className='flex justify-between items-center mb-10'>
-          <motion.h2 className='text-3xl font-semibold'>
-            Featured Projects
-          </motion.h2>
+      {/* --- FEATURED PROJECTS --- */}
+      <section className='py-24'>
+        <div className='flex justify-between items-end mb-12'>
+          <div>
+            <h2 className='text-4xl font-bold'>Selected Works</h2>
+            <p className='text-[var(--color-muted)] mt-2'>
+              A glimpse into my recent code commits.
+            </p>
+          </div>
           <Link
             to='/projects'
-            className='text-sm text-[var(--color-muted)] hover:text-white'>
-            View all →
+            className='hidden md:flex items-center gap-2 text-[var(--color-accent)] font-bold group'>
+            View Gallery{" "}
+            <ArrowRight
+              size={18}
+              className='group-hover:translate-x-2 transition-transform'
+            />
           </Link>
         </div>
 
-        <div className='grid md:grid-cols-2 gap-8'>
-          {projects.slice(0, 3).map((project) => (
-            <motion.div
-              key={project.id}
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-              className='bg-gray-800 rounded-xl overflow-hidden shadow-lg'>
-              {/* Video */}
-              <video
-                src={project.video}
-                controls
-                className='w-full h-[250px] object-cover'
-              />
-
-              {/* Project Info */}
-              <div className='p-4'>
-                <h3 className='text-xl font-semibold mb-2'>{project.title}</h3>
-
-                {/* Tech Stack */}
-                <div className='flex flex-wrap gap-2 mb-2'>
-                  {project.tech.map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className='bg-[var(--color-accent)] text-white px-2 py-1 rounded-full text-xs'>
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                <p className='text-[var(--color-muted)]'>
-                  {project.description}
-                </p>
-              </div>
-            </motion.div>
+        <motion.div
+          className='grid md:grid-cols-2 gap-10'
+          initial='hidden'
+          whileInView='visible'
+          viewport={{ once: true }}
+          variants={staggerContainer}>
+          {projects.slice(0, 4).map((project) => (
+            <VideoProjectCard key={project.id} project={project} />
           ))}
-        </div>
-      </motion.section>
+        </motion.div>
+      </section>
 
-      {/* CTA */}
+      {/* --- CATCHY CTA --- */}
       <motion.section
-        className='py-24 bg-[var(--color-accent)] text-white text-center rounded-xl px-6'
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}>
-        <h2 className='text-3xl font-semibold mb-4'>
-          Ready to Start Your Project?
+        className='py-20 mb-20 relative rounded-[3rem] overflow-hidden text-center bg-[#0a0a0a] border border-white/5'
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}>
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none" />
+        <h2 className='text-4xl md:text-6xl font-bold mb-8 px-6'>
+          Have a vision for a <br />{" "}
+          <span className='text-[var(--color-accent)]'>game-changing</span> app?
         </h2>
-
         <Link
           to='/contact'
-          className='bg-white text-[var(--color-accent)] px-8 py-3 rounded-lg font-semibold hover:scale-105 transition'>
-          Contact Me
+          className='inline-flex items-center gap-3 bg-white text-black px-10 py-5 rounded-full font-black text-lg hover:scale-110 transition-transform'>
+          Let's Build It <Zap size={20} fill='black' />
         </Link>
       </motion.section>
     </Container>
+  );
+}
+
+/* --- HELPER COMPONENT --- */
+function ServiceCard({ icon, title, desc }) {
+  return (
+    <motion.div
+      variants={fadeInUp}
+      className='p-10 rounded-3xl bg-white/[0.02] border border-white/5 backdrop-blur-sm hover:bg-white/[0.05] hover:border-white/10 transition-all group'>
+      <div className='w-14 h-14 rounded-2xl bg-[var(--color-accent)]/10 flex items-center justify-center text-[var(--color-accent)] mb-6 group-hover:scale-110 transition-transform'>
+        {React.cloneElement(icon, { size: 30 })}
+      </div>
+      <h3 className='text-xl font-bold mb-3'>{title}</h3>
+      <p className='text-[var(--color-muted)] leading-relaxed'>{desc}</p>
+    </motion.div>
   );
 }

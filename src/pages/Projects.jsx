@@ -1,92 +1,112 @@
 import Container from "../components/layout/Container";
-import ProjectCard from "../components/ui/ProjectCard";
 import projects from "../data/projects";
 import { motion } from "framer-motion";
+import {
+  ArrowRight,
+  Code2,
+  Rocket,
+  Layout,
+  Smartphone,
+  Zap,
+} from "lucide-react"; // Optional: npm install lucide-react
 
 export default function Projects() {
   return (
     <Container>
-      {/* Hero / Intro */}
-      <section className='py-24 max-w-4xl mx-auto text-center'>
+      {/* Hero Section - Refined Typography */}
+      <section className='py-28 max-w-4xl mx-auto text-center'>
+        <motion.span
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className='text-[var(--color-accent)] font-semibold tracking-widest uppercase text-sm mb-4 block'>
+          Our Portfolio
+        </motion.span>
         <motion.h1
-          className='text-4xl md:text-5xl font-bold mb-6'
+          className='text-5xl md:text-7xl font-extrabold mb-8 tracking-tight'
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}>
-          Our Projects
+          Digital Excellence <br />
+          <span className='text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'>
+            Realized.
+          </span>
         </motion.h1>
 
         <motion.p
-          className='text-[var(--color-muted)] text-lg md:text-xl mb-8'
+          className='text-[var(--color-muted)] text-xl leading-relaxed mb-10'
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }}>
-          At <strong>GWTeck Solutions</strong>, we bring ideas to life by
-          building modern, interactive, and scalable web applications. Each
-          project reflects our focus on performance, design, and user
-          experience.
-        </motion.p>
-
-        <motion.p
-          className='text-[var(--color-muted)] max-w-2xl mx-auto'
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0, transition: { delay: 0.4 } }}>
-          From corporate websites and portfolios to e-commerce platforms and
-          management systems, our projects showcase the versatility and
-          expertise of our team. We take pride in delivering clean code,
-          beautiful design, and solutions that scale.
+          At{" "}
+          <strong className='text-[var(--color-text)]'>GWTeck Solutions</strong>
+          , we blend technical precision with creative vision to build scalable,
+          high-performance web applications.
         </motion.p>
       </section>
 
-      {/* Projects Grid */}
+      {/* Projects Grid - Enhanced Cards */}
       <motion.section
-        className='py-20'
+        className='pb-32'
         initial='hidden'
         whileInView='visible'
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.1 }}
         variants={{
           hidden: {},
-          visible: { transition: { staggerChildren: 0.1 } },
+          visible: { transition: { staggerChildren: 0.15 } },
         }}>
-        <div className='flex justify-between items-center mb-10'>
-          <motion.h2 className='text-3xl font-semibold'>
-            Featured Projects
-          </motion.h2>
+        <div className='flex items-center gap-4 mb-12'>
+          <h2 className='text-3xl font-bold'>Featured Work</h2>
+          <div className='h-[1px] flex-1 bg-gray-800'></div>
         </div>
 
-        <motion.div className='grid md:grid-cols-2 gap-8'>
+        <div className='grid md:grid-cols-2 gap-10'>
           {projects.map((project) => (
             <motion.div
               key={project.id}
               variants={{
-                hidden: { opacity: 0, y: 30 },
+                hidden: { opacity: 0, y: 40 },
                 visible: { opacity: 1, y: 0 },
               }}
-              className='bg-gray-900 rounded-xl shadow-lg overflow-hidden cursor-pointer hover:shadow-2xl transition'
-              onClick={() => (window.location.href = `/projects/${project.id}`)} // navigate to project details
-            >
-              {/* Video Preview */}
-              {project.video ? (
-                <video
-                  src={project.video}
-                  controls
-                  className='w-full h-60 object-cover'
-                  poster={project.image || ""}
-                />
-              ) : (
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className='w-full h-60 object-cover'
-                />
-              )}
+              whileHover={{ y: -10 }}
+              className='group relative bg-[#121212] border border-gray-800 rounded-2xl overflow-hidden transition-all duration-300 hover:border-[var(--color-accent)]/50 hover:shadow-[0_20px_50px_rgba(99,102,241,0.1)]'
+              onClick={() =>
+                (window.location.href = `/projects/${project.id}`)
+              }>
+              {/* Media Container */}
+              <div className='relative h-72 overflow-hidden'>
+                <div className='absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10' />
+                {project.video ? (
+                  <video
+                    src={project.video}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-110'
+                  />
+                ) : (
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-110'
+                  />
+                )}
+                {/* View Details Overlay */}
+                <div className='absolute bottom-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity'>
+                  <div className='bg-white text-black p-3 rounded-full shadow-xl'>
+                    <ArrowRight size={20} />
+                  </div>
+                </div>
+              </div>
 
-              {/* Project Info */}
-              <div className='p-4'>
-                <h3 className='text-xl font-semibold mb-2'>{project.title}</h3>
+              {/* Content */}
+              <div className='p-8'>
+                <h3 className='text-2xl font-bold mb-4 group-hover:text-[var(--color-accent)] transition-colors'>
+                  {project.title}
+                </h3>
                 <div className='flex flex-wrap gap-2'>
                   {project.tech.map((tech, idx) => (
                     <span
                       key={idx}
-                      className='text-sm bg-blue-600 text-white px-2 py-1 rounded-full'>
+                      className='text-xs font-medium tracking-wider uppercase border border-gray-700 text-gray-400 px-3 py-1 rounded-md group-hover:border-[var(--color-accent)]/30 group-hover:text-[var(--color-accent)] transition-all'>
                       {tech}
                     </span>
                   ))}
@@ -94,75 +114,90 @@ export default function Projects() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </motion.section>
 
-      {/* About Our Work Section */}
-      <section className='py-24 bg-transparent border shadow-2xl dark:bg-gray-800 px-6 rounded-xl max-w-4xl mx-auto'>
-        <motion.h2
-          className='text-3xl font-bold mb-6 text-center'
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}>
-          Why Choose GWTeck Solutions
-        </motion.h2>
+      {/* Why Choose Us - Modern Feature Grid */}
+      <section className='py-24 relative overflow-hidden'>
+        <div className='absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[var(--color-accent)]/5 blur-[120px] rounded-full' />
 
-        <div className='space-y-4 text-[var(--color-muted)] text-center'>
-          <p>
-            Every project we build at <strong>GWTeck Solutions</strong> is
-            designed with your business goals in mind. We don’t just write
-            code—we create solutions that engage users, simplify processes, and
-            grow your brand online.
-          </p>
+        <div className='relative z-10'>
+          <h2 className='text-4xl font-bold mb-16 text-center'>
+            Why GWTeck Solutions?
+          </h2>
 
-          <p>Our team focuses on:</p>
-
-          <ul className='  space-y-6 flex flex-col justify-center items-center  w-full text-start [&_li]:border [&_li]:p-3 [&_li]:rounded-[5px]  [&_li]:w-full  '>
-            <li>Modern, clean design with responsive layouts</li>
-            <li>Interactive and user-friendly experiences</li>
-            <li>Optimized performance and scalability</li>
-            <li>Custom solutions tailored to each client</li>
-            <li>Seamless integration with existing systems</li>
-          </ul>
-
-          <p>
-            We combine creativity, technical expertise, and attention to detail
-            to deliver projects that stand out in today’s digital landscape.
-          </p>
+          <div className='grid sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+            <FeatureCard
+              icon={<Layout />}
+              title='Responsive Layouts'
+              desc='Flawless experiences across mobile, tablet, and desktop.'
+            />
+            <FeatureCard
+              icon={<Zap />}
+              title='Optimized Speed'
+              desc='Lightning-fast performance using modern tools like Vite and React.'
+            />
+            <FeatureCard
+              icon={<Code2 />}
+              title='Clean Architecture'
+              desc='Maintainable, scalable codebases using Laravel and Node.js.'
+            />
+            <FeatureCard
+              icon={<Smartphone />}
+              title='Mobile First'
+              desc="Design centered around the modern user's primary device."
+            />
+            <FeatureCard
+              icon={<Rocket />}
+              title='Scalable Logic'
+              desc='Applications built to grow with your business traffic.'
+            />
+            <FeatureCard
+              icon={<Zap />}
+              title='Seamless API'
+              desc='Deep integration with payment gateways and 3rd party services.'
+            />
+          </div>
         </div>
       </section>
 
-      {/* Call-to-Action */}
-      <section className='py-16 text-center'>
-        <motion.h3
-          className='text-2xl md:text-3xl font-semibold mb-6'
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}>
-          Want to Collaborate or See More?
-        </motion.h3>
-
-        <motion.p
-          className='text-[var(--color-muted)] mb-8'
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }}>
-          Reach out and let’s create something amazing together.
-        </motion.p>
-
-        <motion.div
-          className='flex justify-center gap-4'
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0, transition: { delay: 0.4 } }}>
-          <a
-            href='/contact'
-            className='bg-[var(--color-accent)] px-6 py-3 rounded-lg text-white hover:scale-105 transition-transform'>
-            Contact Us
-          </a>
-          <a
-            href='/about'
-            className='border border-[var(--color-accent)] px-6 py-3 rounded-lg text-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-white transition'>
-            Learn More
-          </a>
-        </motion.div>
+      {/* CTA Section - Dark & Focused */}
+      <section className='py-32 text-center'>
+        <div className='max-w-2xl mx-auto p-12 rounded-3xl bg-gradient-to-b from-[#121212] to-transparent border border-gray-800'>
+          <h3 className='text-3xl font-bold mb-6'>
+            Ready to build something iconic?
+          </h3>
+          <p className='text-[var(--color-muted)] mb-10'>
+            Whether it's a VTU platform or a high-end portfolio, we have the
+            tools to make it happen.
+          </p>
+          <div className='flex flex-col sm:flex-row justify-center gap-4'>
+            <a
+              href='/contact'
+              className='bg-[var(--color-accent)] px-8 py-4 rounded-xl text-white font-bold hover:brightness-110 hover:shadow-[0_0_20px_rgba(99,102,241,0.4)] transition-all'>
+              Start a Project
+            </a>
+            <a
+              href='/about'
+              className='border border-gray-700 px-8 py-4 rounded-xl text-white font-bold hover:bg-gray-800 transition-all'>
+              About the Team
+            </a>
+          </div>
+        </div>
       </section>
     </Container>
+  );
+}
+
+// Helper Component for the Feature Grid
+function FeatureCard({ icon, title, desc }) {
+  return (
+    <div className='p-8 rounded-2xl bg-[#0a0a0a] border border-gray-900 hover:border-gray-700 transition-colors'>
+      <div className='text-[var(--color-accent)] mb-4'>{icon}</div>
+      <h4 className='text-lg font-bold mb-2'>{title}</h4>
+      <p className='text-sm text-[var(--color-muted)] leading-relaxed'>
+        {desc}
+      </p>
+    </div>
   );
 }
